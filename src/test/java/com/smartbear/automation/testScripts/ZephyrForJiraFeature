@@ -1,0 +1,38 @@
+package com.smartbear.automation.testScripts;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import com.smartbear.automation.pageObjects.ProductsPage;
+import com.smartbear.automation.pageObjects.ZephyrPage;
+import com.smartbear.automation.testBase.Config;
+import com.smartbear.automation.testBase.TestBase;
+
+public class ZephyrForJiraFeature extends TestBase{
+
+	@Test
+	public void testZephyrForJiraFeature() throws Exception{
+		Config config = new Config(OR);
+		driver.get(config.getWebsite());
+		ProductsPage productsPage = new ProductsPage(driver);
+		productsPage.clickProducts();
+		productsPage.clickZephyr();
+		
+		productsPage.windowsHandle();
+		
+		ZephyrPage zephyrPage = new ZephyrPage(driver);
+		
+		zephyrPage.zephyrNativeJiraEdition();
+		
+		Boolean zephyrForJiraHeader = zephyrPage.getZephyrForJiraHeader().equalsIgnoreCase("Product Features");
+		
+		if(zephyrForJiraHeader) {
+			System.out.println("TestCase ZephyrForJiraFeature Feature Passed Successfully....");
+			Assert.assertTrue(true);
+		}else {
+			System.out.println("TestCase ZephyrForJiraFeature Feature Failed....");
+			Assert.assertFalse(true);
+		}
+		
+	}
+}
