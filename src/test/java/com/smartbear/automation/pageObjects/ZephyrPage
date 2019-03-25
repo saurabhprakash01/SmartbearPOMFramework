@@ -1,0 +1,54 @@
+package com.smartbear.automation.pageObjects;
+
+import java.util.Properties;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import com.smartbear.automation.helper.WaitHelper;
+import com.smartbear.automation.testBase.TestBase;
+
+public class ZephyrPage {
+
+	TestBase tb = new TestBase();
+	WebDriver driver;
+	public static Properties OR;
+	WaitHelper waitHelper = new WaitHelper(driver);
+
+	@FindBy(xpath = "//a[@class='btn btn-white']")
+	public WebElement discoverZephyr;
+	
+	@FindBy(xpath = "//*[@class='field-item even']//*[text()='Zephyr for JIRA']")
+	public WebElement  zephyrNativeJiraEdition;
+	
+	@FindBy(xpath = "//*[@id='productTabs']//*[text()='Features']")
+	public WebElement zephyrNativeJiraEditionFeature;
+	
+	@FindBy(xpath = "//*[@class='text-center padding-b']//*[text()='Product Features']")
+	public WebElement zephyrForJiraFeature;
+	
+	public ZephyrPage(WebDriver driver) throws Exception {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	public void zephyrNativeJiraEdition() {
+		waitHelper.waitForElement(driver, 10, discoverZephyr);
+		discoverZephyr.click();
+		
+		JavascriptExecutor je = (JavascriptExecutor)driver;
+		je.executeScript("window.scrollBy(0,600)", zephyrNativeJiraEdition);
+		zephyrNativeJiraEdition.click();
+		
+		waitHelper.waitForElement(driver, 10, zephyrNativeJiraEditionFeature);
+		zephyrNativeJiraEditionFeature.click();
+	}
+	
+	public String getZephyrForJiraHeader() {
+		waitHelper.waitForElement(driver, 10, zephyrForJiraFeature);
+		return zephyrForJiraFeature.getText();
+	}
+}
