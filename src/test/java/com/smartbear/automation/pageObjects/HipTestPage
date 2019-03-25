@@ -1,0 +1,58 @@
+package com.smartbear.automation.pageObjects;
+
+import java.util.Properties;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import com.smartbear.automation.helper.WaitHelper;
+import com.smartbear.automation.testBase.TestBase;
+
+public class HipTestPage {
+
+	TestBase tb = new TestBase();
+	WebDriver driver;
+	public static Properties OR;
+	WaitHelper waitHelper = new WaitHelper(driver);
+
+	@FindBy(xpath = "//*[@id='primary-menu']//*[text()='Features']")
+	public WebElement hipTestFeatures;
+	
+	@FindBy(xpath = "//*[@class='m-section-header__title' and contains(text(),'Define your idea')]")
+	public WebElement featureHeader;
+	
+	@FindBy(xpath = "//*[@id='primary-menu']//*[text()='Pricing']")
+	public WebElement hipTestPricing;
+	
+	@FindBy(xpath = "//*[@class='m-pricing__text m-pricing__text--price']//*[text()='0 €']")
+	public WebElement hipTestFreePrice;
+
+
+	public HipTestPage(WebDriver driver) throws Exception {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	public void clickFeatures() {
+		waitHelper.waitForElement(driver, 10, hipTestFeatures);
+		hipTestFeatures.click();
+	}
+	
+	public void clickPricing() {
+		waitHelper.waitForElement(driver, 10, hipTestPricing);
+		hipTestPricing.click();
+	}	
+	
+	public String getFeatureHeader() {
+		waitHelper.waitForElement(driver, 10, featureHeader);
+		return featureHeader.getText();
+	}
+	
+	public String getHipTestFreePrice() {
+		waitHelper.waitForElement(driver, 10, hipTestFreePrice);
+		return hipTestFreePrice.getText();
+	}	
+
+}
