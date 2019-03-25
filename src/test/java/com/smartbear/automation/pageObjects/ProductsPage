@@ -1,0 +1,67 @@
+package com.smartbear.automation.pageObjects;
+
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import com.smartbear.automation.helper.WaitHelper;
+import com.smartbear.automation.testBase.TestBase;
+
+public class ProductsPage {
+
+	TestBase tb = new TestBase();
+	WebDriver driver;
+	public static Properties OR;
+	WaitHelper waitHelper = new WaitHelper(driver);
+
+	@FindBy(xpath = "//*[@class='nav-link dropdown-toggle'][text()='Products']")
+	public WebElement products;
+
+	@FindBy(xpath = "//*[@class='dropdown-menu mega-menu mega-menu-products show']//*[@class='item-name'][text() ='HipTest']")
+	public WebElement clickHipTest;
+	
+	@FindBy(xpath = "//*[@class='dropdown-menu mega-menu mega-menu-products show']//*[@class='item-name'][text() ='Zephyr']")
+	public WebElement clickZephyr;
+
+	public ProductsPage(WebDriver driver) throws Exception {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+
+	public void clickProducts() {
+/*		Config config = new Config(OR);
+		userEmail.sendKeys(config.getUserName());*/
+		waitHelper.waitForElement(driver, 10, products);
+		products.click();
+	}
+	
+	public void clickHipTest() {
+		waitHelper.waitForElement(driver, 10, clickHipTest);
+		clickHipTest.click();
+	}
+	
+	public void clickZephyr() {
+		waitHelper.waitForElement(driver, 10, clickZephyr);
+		clickZephyr.click();
+	}
+
+	public void windowsHandle() {
+		String parent=driver.getWindowHandle();
+		Set<String>s1=driver.getWindowHandles();
+		Iterator<String> I1= s1.iterator();
+		while(I1.hasNext())
+		{
+		  String child_window=I1.next();
+		  if(!parent.equals(child_window))
+		  {
+		    driver.switchTo().window(child_window);
+		    System.out.println(driver.switchTo().window(child_window).getTitle());
+		  }
+		}
+	}
+}
