@@ -33,6 +33,7 @@ public class HipTestFeature extends TestBase{
 			Assert.assertTrue(true);
 		}else {
 			System.out.println("TestCase HipTest Feature Failed....");
+			getScreenshot("testHipTestFeature");
 			Assert.assertFalse(true);
 		}
 		
