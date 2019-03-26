@@ -8,31 +8,32 @@ import com.smartbear.automation.pageObjects.ZephyrPage;
 import com.smartbear.automation.testBase.Config;
 import com.smartbear.automation.testBase.TestBase;
 
-public class ZephyrForJiraFeature extends TestBase{
+public class ZephyrForJiraFeature extends TestBase {
 
 	@Test
-	public void testZephyrForJiraFeature() throws Exception{
+	public void testZephyrForJiraFeature() throws Exception {
 		Config config = new Config(OR);
 		driver.get(config.getWebsite());
 		ProductsPage productsPage = new ProductsPage(driver);
 		productsPage.clickProducts();
 		productsPage.clickZephyr();
-		
+
 		productsPage.windowsHandle();
-		
+
 		ZephyrPage zephyrPage = new ZephyrPage(driver);
-		
+
 		zephyrPage.zephyrNativeJiraEdition();
-		
+
 		Boolean zephyrForJiraHeader = zephyrPage.getZephyrForJiraHeader().equalsIgnoreCase("Product Features");
-		
-		if(zephyrForJiraHeader) {
+
+		if (zephyrForJiraHeader) {
 			System.out.println("TestCase ZephyrForJiraFeature Feature Passed Successfully....");
 			Assert.assertTrue(true);
-		}else {
+		} else {
 			System.out.println("TestCase ZephyrForJiraFeature Feature Failed....");
+			getScreenshot("testZephyrForJiraFeature");
 			Assert.assertFalse(true);
 		}
-		
 	}
 }
+
