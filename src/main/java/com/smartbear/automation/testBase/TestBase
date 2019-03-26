@@ -7,15 +7,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Properties;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.apache.commons.io.FileUtils;
 
 public class TestBase {
 	
@@ -66,7 +65,6 @@ public class TestBase {
 		OR.load(file);
 	}
 	
-	@AfterMethod
 	public String getScreenshot(String imageName) throws IOException {
 		if(imageName.equals("")) {
 			imageName = "blank";
@@ -75,9 +73,10 @@ public class TestBase {
 		String imageLocation = System.getProperty("user.dir")+"/src/main/java/com/smartbear/automation/screenshot/";
 		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss");
-		String actualImage = imageLocation+image+"_"+formater.format(calendar.getTime())+".png";
+		String actualImage = imageLocation+imageName+"_"+formater.format(calendar.getTime())+".png";
+		
 		File destFile = new File(actualImage);
-		FileUtils.copyFile(image,destFile);
+		FileUtils.copyFile(image, destFile);
 		return actualImage;
 	}
 	
