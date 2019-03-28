@@ -1,0 +1,31 @@
+package com.smartbear.automation.helper;
+
+import java.util.Iterator;
+import java.util.Set;
+
+import org.openqa.selenium.WebDriver;
+import com.smartbear.automation.testBase.TestBase;
+
+public class WindowsHelper {
+
+	TestBase tb = new TestBase();
+	WebDriver driver;
+	WaitHelper waitHelper = new WaitHelper(driver);
+	
+	public WindowsHelper(WebDriver driver) {
+		this.driver = driver;
+	}
+	
+	public void windowsHandle() {
+		String parent = driver.getWindowHandle();
+		Set<String> s1 = driver.getWindowHandles();
+		Iterator<String> I1 = s1.iterator();
+		while (I1.hasNext()) {
+			String child_window = I1.next();
+			if (!parent.equals(child_window)) {
+				driver.switchTo().window(child_window);
+				//System.out.println(driver.switchTo().window(child_window).getTitle());
+			}
+		}
+	}
+}
