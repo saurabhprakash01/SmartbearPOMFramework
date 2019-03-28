@@ -3,6 +3,7 @@ package com.smartbear.automation.testScripts;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.smartbear.automation.helper.WindowsHelper;
 import com.smartbear.automation.pageObjects.ProductsPage;
 import com.smartbear.automation.pageObjects.ZephyrPage;
 import com.smartbear.automation.testBase.Config;
@@ -18,7 +19,8 @@ public class ZephyrForJiraFeature extends TestBase {
 		productsPage.clickProducts();
 		productsPage.clickZephyr();
 
-		productsPage.windowsHandle();
+		WindowsHelper wHelper = new WindowsHelper(driver);
+		wHelper.windowsHandle();
 
 		ZephyrPage zephyrPage = new ZephyrPage(driver);
 
@@ -36,4 +38,3 @@ public class ZephyrForJiraFeature extends TestBase {
 		}
 	}
 }
-
