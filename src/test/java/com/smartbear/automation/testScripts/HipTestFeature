@@ -3,39 +3,39 @@ package com.smartbear.automation.testScripts;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.smartbear.automation.helper.WindowsHelper;
 import com.smartbear.automation.pageObjects.HipTestPage;
 import com.smartbear.automation.pageObjects.ProductsPage;
 import com.smartbear.automation.testBase.Config;
 import com.smartbear.automation.testBase.TestBase;
 
-public class HipTestFeature extends TestBase{
-	
+public class HipTestFeature extends TestBase {
+
 	@Test
-	public void testHipTestFeature() throws Exception{
+	public void testHipTestFeature() throws Exception {
 		Config config = new Config(OR);
 		driver.get(config.getWebsite());
 		ProductsPage productsPage = new ProductsPage(driver);
 		productsPage.clickProducts();
 		productsPage.clickHipTest();
-		
-		productsPage.windowsHandle();
-		
+
+		WindowsHelper wHelper = new WindowsHelper(driver);
+		wHelper.windowsHandle();
+
 		HipTestPage hipTestPage = new HipTestPage(driver);
-		
 		hipTestPage.clickFeatures();
 		Boolean featureHeader = hipTestPage.getFeatureHeader().equalsIgnoreCase("Define your idea");
-		
+
 		hipTestPage.clickPricing();
 		Boolean hipTestFreePrice = hipTestPage.getHipTestFreePrice().equalsIgnoreCase("0 €");
-		
-		if(featureHeader && hipTestFreePrice) {
+
+		if (featureHeader && hipTestFreePrice) {
 			System.out.println("TestCase HipTest Feature Passed Successfully....");
 			Assert.assertTrue(true);
-		}else {
+		} else {
 			System.out.println("TestCase HipTest Feature Failed....");
 			getScreenshot("testHipTestFeature");
 			Assert.assertFalse(true);
 		}
-		
 	}
 }
